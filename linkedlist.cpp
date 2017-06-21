@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 class node {
 	public:
@@ -13,6 +15,8 @@ class linkedlist{
 	private:
 	node *head;
 	node *tail;
+	vector<int> v;
+	void nodetoarray();
 	public:
 	linkedlist(){ head =tail=0;}	//constructor -2 
 	void addhead(int n);
@@ -20,6 +24,8 @@ class linkedlist{
 	void removehead();
 	void removetail();
 	void display();
+	void removenode(int n);
+	void sortdisplay();
 };
 void linkedlist::addhead(int n){
 	
@@ -66,6 +72,50 @@ void linkedlist::addtail(int n){
 	 else 
 	 head = tail =0;
  }
+ void linkedlist::removenode(int n){
+	 node *temp = head;
+	 node *prev = 0;
+	 
+	 if(head->element  ==n ){																// deleting head
+		removehead();
+	}
+	 else if(tail->element ==n){															// deleting tail 	
+		 removetail();																					
+	 }
+	 else{
+		 while(temp && temp->element !=n ){
+			 prev= temp;
+			 temp =temp->next;
+		 }
+		 if(temp){
+			 prev->next = temp->next;
+			 delete temp;
+		 }
+		 else{
+			 cout<<"Not found"<<"\n";
+		 }
+	}
+}
+ void linkedlist::nodetoarray(){
+	 node *temp = head;
+	 for(;temp!=0;temp=temp->next){
+		 v.push_back(temp->element);
+	 }
+ }
+	 
+ 
+ void linkedlist::sortdisplay(){
+	 nodetoarray();
+	 sort(v.begin(),v.end());
+	 for(int i=0;i<(int)v.size();i++){
+		 cout<<v[i]<<"->";
+	 }
+	 v.erase(v.begin(),v.end());
+	 cout<<"null"<<"\n";
+	 
+ }
+	 
+		 
  int main(){
 	 int choice,val;
 	 linkedlist ll;
@@ -76,7 +126,9 @@ void linkedlist::addtail(int n){
 		 cout<<"3.remove head"<<"\n";
 		 cout<<"4. remove tail"<<"\n";
 		 cout<<"5 display "<<"\n";
-		 cout<<"6 exit "<<"\n";
+		 cout<<"6 sort and display  "<<"\n";
+		 cout<<"7 remove node "<<"\n";
+		 cout<< "8 Exit "<<"\n";
 		 cin>>choice;
 		 switch(choice){
 			 case 1:
@@ -100,9 +152,18 @@ void linkedlist::addtail(int n){
 			 ll.display();
 			 break;
 			 case 6:
+			 cout<<"Sorted linked list "<<"\n";
+			 ll.sortdisplay();
+			 break;
+			 case 7:
+			 cout<<"Enter the value to delete "<<"\n";
+			 cin>>val;
+			 ll.removenode(val);
+			 break;
+			 case 8:
 			 break;
 		 }
-	 }while(choice!=6);
+	 }while(choice!=8);
  }
 			 
 			 
