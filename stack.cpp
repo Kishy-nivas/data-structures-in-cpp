@@ -4,11 +4,11 @@ using namespace std;
 class Stack{
 private:
     int element;
-    Stack *top;
     Stack *next;
+    //static because it saves heap space
+    static Stack *top ;
 public:
     Stack(){            //constructor -1
-        top =0;
         next=0;
     }
     Stack(int n){       //constructor -2
@@ -24,6 +24,10 @@ public:
     void emptyStack() ;
 
 };
+//Static varibles here
+//optimizing code -- 4 bytes per element
+Stack* Stack::top = 0;
+
 void Stack::push(int n){
     if(top ){
         Stack *temp;
@@ -37,13 +41,28 @@ void Stack::push(int n){
 }
 
 void Stack::pop(){
-        Stack* temp;
-        temp = top;
-        top = top->next;
-        delete temp;
-    }
+
+	if(isempty())
+	{
+		cout <<"Stack is Empty"<<endl ;
+		return ;
+	}
+		
+    Stack* temp;
+    temp = top;
+    top = top->next;
+    delete temp;
+}
 
 int Stack::topelement(){
+
+	if(isempty())
+	{
+		cout <<"Stack is Empty"<<endl ;
+		//Returning -1 may not be the idel
+		return -1;
+	}
+	
     return top->element;
 }
 bool Stack::isempty(){
@@ -74,20 +93,14 @@ int main(){
         case 1:
             cout<<"Enter the value to push "<<"\n";
             cin>>val;
-           s.push(val);
+            s.push(val);
             break;
         case 2:
-            if(!s.isempty())
             s.pop();
-            else
-                cout<<"Stack is empty "<<"\n";
             break;
         case 3:
-            if(!s.isempty())
            cout<< s.topelement()<<"\n";
-            else
-                cout<<"Stack is empty"<<"\n";
-            break;
+           break;
         case 4:
             break;
         case 5:
