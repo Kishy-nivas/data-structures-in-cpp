@@ -19,6 +19,9 @@ public:
     void pop();
     int topelement();
     bool isempty();
+    
+    //Additional Method
+    void emptyStack() ;
 
 };
 void Stack::push(int n){
@@ -47,7 +50,13 @@ bool Stack::isempty(){
     return top==0;
 
 }
-
+void Stack::emptyStack() 
+{
+	while(!isempty())
+	{
+		pop() ;
+	}
+}
 int main(){
     Stack s;
     int choice,val;
@@ -57,6 +66,7 @@ int main(){
         cout<<"2 pop "<<"\n";
         cout<<"3 top"<<"\n";
         cout<<"4 quit "<<"\n";
+        cout<<"5 Empty Stack "<<"\n";        
         cout<<"\n";
         cin>>choice;
         cout<<"\n";
@@ -80,6 +90,9 @@ int main(){
             break;
         case 4:
             break;
+        case 5:
+        	s.emptyStack() ;
+            break;            
         }
     }while(choice!=4);
 
