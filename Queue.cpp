@@ -17,8 +17,6 @@ public:
     int topelement();
     int endelement();
     bool isempty();
-    
-    
 };
 void Queue::queue(int data){
     if(front){
@@ -40,36 +38,15 @@ void Queue::dequeue(){
         temp = front;
         front =front->next;
         delete temp;
+
     }
-    
-    if(isempty())
-    {
-    	end = 0 ;
-		cout << "Queue Empty"<<"\n" ;
-    }
-    
-    
 }
 
 int Queue::topelement(){
-
-	if(!isempty())
-	{
-    	return front->element;	
-	}
-	
-	cout << "Queue Empty"<<"\n" ;
-	return -1 ;
+    return front->element;
 }
 int Queue::endelement(){
-
-	if(!isempty())
-	{
-	    return end->element;
-	}
-	
-	cout << "Queue Empty"<<"\n" ;
-	return -1 ;
+    return end->element;
 }
 bool Queue::isempty(){
     return front==0;
@@ -79,7 +56,7 @@ int main(){
     Queue q;
     do{
         cout<<"Enter the choices "<<"\n";
-        cout<<"1 Queue "<<"\n";
+        cout<<"1 .Queue "<<"\n";
         cout<<"2 Dequeue"<< "\n";
         cout<<"3 top element "<<"\n";
         cout<<"4 bottom element "<<"\n";
@@ -93,13 +70,25 @@ int main(){
             q.queue(val);
             break;
         case 2:
-            q.dequeue();
+            if(!q.isempty()){
+                q.dequeue();
+            }
+            else
+                cout<<"Queue is empty "<<"\n";
             break;
         case 3:
-            cout<<q.topelement()<<"\n";
+            if(!q.isempty()){
+                cout<<q.topelement()<<"\n";
+            }
+            else
+                cout<<"Queue is empty"<<"\n";
             break;
         case 4:
-            cout<<q.endelement()<<"\n";
+            if(!q.isempty()){
+                 cout<<q.endelement()<<"\n";
+            }
+            else
+                cout<<"Queue is empty"<<"\n";
             break;
         default:
             break;
