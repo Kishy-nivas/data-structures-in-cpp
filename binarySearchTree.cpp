@@ -28,7 +28,9 @@ class binaryTree
 	void inOrder(nodeClass* T) ;	
 	void preOrder(nodeClass* T) ;	
 	void postOrder(nodeClass* T) ;			
-	nodeClass* insert(int data , nodeClass* T) ;	
+	nodeClass* findMin(nodeClass* T) ;
+	nodeClass* insert(int data , nodeClass* T) ;
+	nodeClass* del(int data , nodeClass* T) ;		
 };
 
 nodeClass* binaryTree::root = 0 ;
@@ -54,6 +56,64 @@ nodeClass* binaryTree::insert(int data , nodeClass* T)
 	return T ;
 	
 	
+}
+
+nodeClass* binaryTree::del(int data , nodeClass* T)
+{
+	//If Null then return nothing to delete ;
+	
+	if(T == NULL) 
+	{
+		return T ;
+	}
+	
+	if(data < T->data) 
+	{
+		T->left = del(data , T->left) ;
+	} 
+	else if(data > T->data) 
+	{
+		T->right = del(data , T->right) ;
+	}
+	else
+	{
+		if(T->right == NULL && T->left == NULL)
+		{
+			delete T ;
+			T = NULL ;
+		} 
+		else if(T->left == NULL)
+		{
+			nodeClass* temp = T ;
+			T = T->right ;
+			delete temp ;
+		}
+		else if(T->right == NULL)
+		{
+			nodeClass* temp = T ;
+			T = T->left ;
+			delete temp ;
+		}
+		else
+		{
+			nodeClass* temp = findMin(T->right) ;
+			T->data = temp->data ;
+			T->right = del(data , T->right);
+			
+		}
+	}
+	
+	return T ;
+
+}
+
+nodeClass* binaryTree::findMin(nodeClass* T)
+{
+	if(T->left != NULL)
+	{
+		T = findMin( T->left );
+	}
+	return T ;
 }
 
 void binaryTree::inOrder(nodeClass* T)
@@ -98,6 +158,7 @@ int main()
         cout<<"3 Preorder "<<"\n";
         cout<<"4 Postorder"<<"\n";
         cout<<"5 Quit"<<"\n";
+        cout<<"6 Delete Node"<<"\n";        
         cout<<"*********"<<"\n";
         cin>>choice;
         switch (choice) {
@@ -118,6 +179,11 @@ int main()
             cout<<"Postorder Traversal "<<"\n";
             b.postOrder(b.root);
             break;
+        case 6:
+            cout<<"Enter the value "<<"\n";
+            cin>>val;
+            b.root = b.del(val , b.root);
+            break;            
         default:
             break;
         }
