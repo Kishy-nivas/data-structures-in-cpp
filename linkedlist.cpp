@@ -76,14 +76,6 @@ void linkedlist::addtail(int n){
 	 node *temp = head;
 	 node *prev = 0;
 	 
-	 //On empty List do nothing
-	 
-	 if(head == 0)
-	 {
-	 	cout << "Empty List" <<"\n" ;
-	 	return ;
-	 }
-	 
 	 if(head->element  ==n ){																// deleting head
 		removehead();
 	}
