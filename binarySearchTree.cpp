@@ -29,6 +29,7 @@ class binaryTree
 	void preOrder(nodeClass* T) ;	
 	void postOrder(nodeClass* T) ;			
 	nodeClass* findMin(nodeClass* T) ;
+	nodeClass* findMax(nodeClass* T) ;
 	nodeClass* insert(int data , nodeClass* T) ;
 	nodeClass* del(int data , nodeClass* T) ;		
 };
@@ -109,9 +110,19 @@ nodeClass* binaryTree::del(int data , nodeClass* T)
 
 nodeClass* binaryTree::findMin(nodeClass* T)
 {
+
 	if(T->left != NULL)
 	{
 		T = findMin( T->left );
+	}
+	return T ;
+}
+
+nodeClass* binaryTree::findMax(nodeClass* T)
+{
+	if(T->right != NULL)
+	{
+		T = findMin( T->right );
 	}
 	return T ;
 }
@@ -159,6 +170,8 @@ int main()
         cout<<"4 Postorder"<<"\n";
         cout<<"5 Quit"<<"\n";
         cout<<"6 Delete Node"<<"\n";        
+        cout<<"7 Find Min"<<"\n";        
+        cout<<"8 Find Max"<<"\n";                        
         cout<<"*********"<<"\n";
         cin>>choice;
         switch (choice) {
@@ -172,6 +185,7 @@ int main()
             b.inOrder(b.root);
             break;
         case 3:
+        
             cout<<"Preorder Traversal "<<"\n";
             b.preOrder(b.root);
             break;
@@ -184,6 +198,12 @@ int main()
             cin>>val;
             b.root = b.del(val , b.root);
             break;            
+        case 7:
+            cout << "Minimum Element "<<b.findMin(b.root)->data<<"\n" ;
+            break;            
+        case 8:
+            cout << "Maximum Element "<<b.findMax(b.root)->data<<"\n" ;
+            break;                        
         default:
             break;
         }
